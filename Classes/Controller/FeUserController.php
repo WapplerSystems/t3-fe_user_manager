@@ -130,10 +130,10 @@ class FeUserController extends ActionController
                 ['disable' => 0],
                 ['uid' => $user]
             );
+
+            $this->addFlashMessage('E-Mail an '.$userRecord['username'].' gesendet.', '', ContextualFeedbackSeverity::OK);
+
         }
-
-        $this->addFlashMessage('E-Mail an '.$userRecord['username'].' gesendet.', '', ContextualFeedbackSeverity::OK);
-
 
         $uri = $this->backendUriBuilder->buildUriFromRoute('fe_user_manager');
         return new RedirectResponse($uri);
