@@ -105,6 +105,7 @@ class FeUserController extends ActionController
 
         $userRecord = $queryBuilder
             ->select('uid', 'username', 'email', 'first_name', 'last_name')
+            ->where($queryBuilder->expr()->eq('uid', $user))
             ->from('fe_users')
             ->executeQuery()
             ->fetchAssociative();
