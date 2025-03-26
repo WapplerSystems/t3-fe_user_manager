@@ -1,0 +1,11 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  WapplerSystems\FeUserManager\:
+    resource: '../Classes/*'
+
+  WapplerSystems\FeUserManager\Controller\FeUserController:
+    tags: ['backend.controller']

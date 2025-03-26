@@ -1,0 +1,48 @@
+<html
+    xmlns:backend="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+    lang="en">
+
+<f:layout name="Module"/>
+<f:section name="Content">
+
+    <f:flashMessages/>
+
+
+    <h1>FE User Liste</h1>
+    <div class="table-fit">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>UID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th class="col-control">Aktion</th>
+            </tr>
+            </thead>
+            <tbody>
+            <f:for each="{users}" as="user">
+                <tr>
+                    <td>{user.uid}</td>
+                    <td>{user.username}</td>
+                    <td>{user.email}</td>
+                    <td>
+                        <f:if condition="{user.disable}">
+                            <f:then>Deaktiviert</f:then>
+                            <f:else>Aktiv</f:else>
+                        </f:if>
+                    </td>
+                    <td>
+                        <f:if condition="{user.disable}">
+                            <f:link.action class="btn btn-danger" action="activateUser" arguments="{user: user.uid}">Aktivieren</f:link.action>
+                        </f:if>
+                    </td>
+                </tr>
+            </f:for>
+            </tbody>
+        </table>
+    </div>
+</f:section>
+</html>

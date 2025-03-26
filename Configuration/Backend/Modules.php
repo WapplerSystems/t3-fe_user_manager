@@ -1,19 +1,20 @@
 <?php
 
+use WapplerSystems\FeUserManager\Controller\FeUserController;
+
 return [
     'fe_user_manager' => [
         'parent' => 'web',
-        'access' => 'admin',
-        'iconIdentifier' => 'fe-user-module',
+        'access' => 'user',
+        'iconIdentifier' => 'module-beuser',
+        'inheritNavigationComponentFromMainModule' => false,
         'labels' => 'LLL:EXT:fe_user_manager/Resources/Private/Language/locallang_mod.xlf',
-        'routes' => [
-            '_default' => [
-                'target' => \WapplerSystems\FeUserManager\Controller\FeUserController::class . '::indexAction',
-            ],
-            'activate' => [
-                'path' => '/fe-user/activate/{user}',
-                'target' => \WapplerSystems\FeUserManager\Controller\FeUserController::class . '::activateUserAction',
-            ],
-        ],
+        'path' => '/module/fe-user-manager',
+        'extensionName' => 'FeUserManager',
+        'controllerActions' => [
+            FeUserController::class => [
+                'index', 'activateUser',
+            ]
+        ]
     ],
 ];
