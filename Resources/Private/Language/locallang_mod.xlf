@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2023-01-01T00:00:00Z">
+        <body>
+            <trans-unit id="module.title">
+                <source>FE User Manager</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
