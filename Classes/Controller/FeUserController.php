@@ -13,6 +13,7 @@ use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Backend\View\BackendLayoutView;
 use TYPO3\CMS\Backend\View\Drawing\BackendLayoutRenderer;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Database\Query\Restriction\HiddenRestriction;
 use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Http\RedirectResponse;
@@ -112,16 +113,18 @@ class FeUserController extends ActionController
 
         if ($userRecord) {
 
-
             $GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths'][1742999266] = 'EXT:fe_user_manager/Resources/Private/Templates/Email/';
+
+            $subject = GeneralUtility::makeInstance(ExtensionConfiguration::class)
+                ->get('fe_user_manager', 'subject');
 
             $email = new FluidEmail();
             $email
                 ->setRequest($this->request)
                 ->to($userRecord['username'])
                 ->from(new Address($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'], $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName']))
-                ->subject('Ihr Konto wurde aktiviert')
-                ->format(FluidEmail::FORMAT_BOTH) // send HTML and plaintext mail
+                ->subject($subject)
+                ->format(FluidEmail::FORMAT_BOTH)
                 ->setTemplate('ActivationEmail')
                 ->assign('user', $userRecord);
             GeneralUtility::makeInstance(MailerInterface::class)->send($email);
@@ -132,7 +135,7 @@ class FeUserController extends ActionController
                 ['uid' => $user]
             );
 
-            $this->addFlashMessage('E-Mail an '.$userRecord['username'].' gesendet.', '', ContextualFeedbackSeverity::OK);
+            $this->addFlashMessage('E-Mail an '.$userRecord['username'].' gesendet.', '');
 
         }
 

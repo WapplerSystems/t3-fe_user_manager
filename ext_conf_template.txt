@@ -1,0 +1,3 @@
+
+# cat=Backend; type=text; label=Activation email subject
+subject = Ihr Konto wurde aktiviert
