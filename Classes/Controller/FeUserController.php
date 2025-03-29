@@ -74,6 +74,7 @@ class FeUserController extends ActionController
         $users = $queryBuilder
             ->select('uid', 'username', 'email', 'disable')
             ->from('fe_users')
+            ->orderBy('disable', 'DESC')
             ->executeQuery()
             ->fetchAllAssociative();
 
